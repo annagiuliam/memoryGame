@@ -1,4 +1,17 @@
-.App {
+img {
+  height: 250px;
+  width: 250px;
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+
+
+/* .App {
   text-align: center;
 }
 
@@ -36,3 +49,4 @@
     transform: rotate(360deg);
   }
 }
+ */
