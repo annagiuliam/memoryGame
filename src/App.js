@@ -30,8 +30,7 @@ function App() {
   function handleScore(clickedCat) {    
     setScore(score + 1); 
     clickCat(clickedCat);
-    shuffleArray(cats);
-    
+    shuffleArray(cats);    
   }
 
   function handleLose() {
