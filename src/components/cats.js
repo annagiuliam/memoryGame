@@ -12,10 +12,6 @@ import cat11 from '../images/cat11.jpeg'
 import cat12 from '../images/cat12.jpeg'
 
 let catArr = [
-/* for (let i = 1; i<= 12; i++) {
-    let obj = {id : i, src : 'cat' + i, clicked : "false"};
-    catArr.push(obj)  
-} */
     {id : 1,
     src : cat1,
     clicked : false
@@ -26,8 +22,8 @@ let catArr = [
     clicked : false
     },
     {id : 3,
-        src : cat3,
-        clicked : false
+    src : cat3,
+    clicked : false
     },
     {id : 4,
     src : cat4,

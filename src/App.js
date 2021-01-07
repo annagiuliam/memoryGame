@@ -10,15 +10,11 @@ function App() {
   const [cats, setCats] = useState(catArr);
   const  [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
-
+  
   useEffect(() => {
-    if (score === cats.length) { 
-      alert("You won!")
-      setHighScore(score)
-      setScore(0)
-      resetCats();
-      shuffleArray(cats);
-    }
+     if (score === cats.length) {
+       handleWin();
+     }
   })
 
   function handleClick(catId) {
@@ -31,6 +27,13 @@ function App() {
     setScore(score + 1); 
     clickCat(clickedCat);
     shuffleArray(cats);    
+  }
+
+  function handleWin() {
+    alert("You won!")
+      setHighScore(score)
+      setScore(0)
+      resetCats();
   }
 
   function handleLose() {
