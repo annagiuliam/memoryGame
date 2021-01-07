@@ -1,93 +1,96 @@
-import React, { useState, useEffect } from "react";
-import { shuffle } from "lodash";
-import catArr from "./components/cats";
-import "./App.css";
-import Card from "./components/card";
-import Wrapper from "./components/wrapper";
-import Header from "./components/header";
+import React, {useState, useEffect} from 'react';
+import {shuffle} from 'lodash';
+import catArr from './components/cats';
+import './App.css';
+import Card from './components/card';
+import Wrapper from './components/wrapper';
+import Header from './components/header';
 
 function App() {
   const [cats, setCats] = useState(catArr);
-  const [score, setScore] = useState(0);
+  const  [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  
+  useEffect(() => {
 
+    function handleWin() {
+      alert("You won!")
+        setHighScore(score)
+        setScore(0)
+        resetCats();
+    }
+    
+     if (score === cats.length) {
+       handleWin();
+     }
+  })
 
   function handleClick(catId) {
     const clickedCat = cats.find((cat) => cat.id === catId);
-    !clickedCat.clicked ? handleScore(clickedCat) : handleLose();
+    (! clickedCat.clicked ) ?  handleScore(clickedCat) :  handleLose();
+   
   }
 
-  function checkIfWon(newScore) {
-    if (newScore === cats.length) {
-      handleWin(newScore);
-    }
-  }
-
-  function handleWin(newScore) {
-    alert("You won!");
-    setHighScore(newScore);
-    setScore(0);
-    resetCats();
-  }
- 
-
- 
-  function handleScore(clickedCat) {
-    const newScore = score + 1;
-    setScore(newScore);
-    checkIfWon(newScore);
+  function handleScore(clickedCat) {    
+    setScore(score + 1); 
     clickCat(clickedCat);
-    shuffleArray(cats);
+    shuffleArray(cats);    
   }
+
+  
 
   function handleLose() {
     if (score > highScore) {
-      setHighScore(score);
-    }
+      setHighScore(score) 
+    }   
     setScore(0);
     resetCats();
-    alert("You lost, try again!");
+    alert("You lost, try again!")
     shuffleArray(cats);
   }
 
   function resetCats() {
     const newCats = cats.map((cat) => {
-      cat.clicked = false;
+      cat.clicked = false
       return cat;
     });
-    setCats(newCats);
+    setCats(newCats)
   }
 
-  function clickCat(clickedCat) {
+  function clickCat(clickedCat) { 
     const newCats = cats.map((cat) => {
       if (cat.id === clickedCat.id) {
         cat.clicked = true;
       }
-      return cat;
-    });
+      return cat
+    })
     setCats(newCats);
   }
 
   function shuffleArray(array) {
-    const newArr = shuffle(array);
+    const newArr = shuffle(array)
     setCats(newArr);
   }
 
   return (
     <Wrapper>
-      <Header score={score} highScore={highScore} />
+      <Header 
+        score={score}
+        highScore={highScore} />
       <div className="cards-container">
         {cats.map((cat) => {
-          return (
-            <Card
+            return (
+              <Card 
               cat={cat}
               key={cat.id}
-              onClick={() => handleClick(cat.id)}
-            ></Card>
-          );
-        })}
+              onClick={() => handleClick(cat.id)}></Card>
+            )
+          })}
       </div>
-    </Wrapper>
+         
+        
+      
+      </Wrapper>
   );
 }
 
