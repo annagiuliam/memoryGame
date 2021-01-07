@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { shuffle } from "lodash";
 import catArr from "./components/cats";
@@ -30,7 +29,9 @@ function App() {
     setScore(0);
     resetCats();
   }
-  
+ 
+
+ 
   function handleScore(clickedCat) {
     const newScore = score + 1;
     setScore(newScore);
