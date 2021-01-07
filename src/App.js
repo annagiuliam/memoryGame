@@ -12,6 +12,14 @@ function App() {
   const [highScore, setHighScore] = useState(0);
   
   useEffect(() => {
+
+    function handleWin() {
+      alert("You won!")
+        setHighScore(score)
+        setScore(0)
+        resetCats();
+    }
+    
      if (score === cats.length) {
        handleWin();
      }
@@ -29,12 +37,7 @@ function App() {
     shuffleArray(cats);    
   }
 
-  function handleWin() {
-    alert("You won!")
-      setHighScore(score)
-      setScore(0)
-      resetCats();
-  }
+  
 
   function handleLose() {
     if (score > highScore) {
