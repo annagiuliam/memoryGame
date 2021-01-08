@@ -15,21 +15,25 @@ function App() {
   const [displayLose, setDisplayLose] = useState(false);
   
   useEffect(() => {
-    function handleWin() {
-      setDisplayWin(true)
-      setHighScore(score)
-      setScore(0)
-      resetCats();
+    function displayWin() {
+      setDisplayWin(true);
     }
     
      if (score === cats.length) {
-       handleWin();
+      displayWin();
      }
   })
 
+  function handleWin() {
+    setDisplayWin(false)
+    setHighScore(score)
+    setScore(0)
+    resetCats();
+  }
+
   function handleClick(catId) {
     const clickedCat = cats.find((cat) => cat.id === catId);
-    (! clickedCat.clicked ) ?  handleScore(clickedCat) :  handleLose();
+    (! clickedCat.clicked ) ?  handleScore(clickedCat) :  setDisplayLose(true);
    
   }
 
@@ -40,12 +44,12 @@ function App() {
   }  
 
   function handleLose() {
+    setDisplayLose(false)
     if (score > highScore) {
       setHighScore(score) 
     }   
     setScore(0);
     resetCats();
-    setDisplayLose(true);
     shuffleArray(cats);
   }
 
@@ -90,12 +94,12 @@ function App() {
       {displayWin && <Modal 
                         show={displayWin}
                         text={"Congratulations, you won!"}
-                        onClick={() => setDisplayWin(false)}
+                        onClick={handleWin}
        />}
       {displayLose && <Modal 
                         show={displayLose}
                         text={"Sorry, you lost, try again!"} 
-                        onClick={() => setDisplayLose(false)}
+                        onClick={handleLose}
         />}
         
       
