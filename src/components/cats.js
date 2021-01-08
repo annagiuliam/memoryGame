@@ -25,7 +25,7 @@ let catArr = [
     src : cat3,
     clicked : false
     },
-    /* {id : 4,
+    {id : 4,
     src : cat4,
     clicked : false
     },
@@ -60,7 +60,7 @@ let catArr = [
     {id : 12,
     src : cat12,
     clicked : false
-    } */
+    }
 ]
 
 export default catArr

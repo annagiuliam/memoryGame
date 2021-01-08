@@ -14,33 +14,30 @@ function App() {
   const [displayWin, setDisplayWin] = useState(false);
   const [displayLose, setDisplayLose] = useState(false);
   
-  useEffect(() => {
-    function displayWin() {
-      setDisplayWin(true);
-    }
-    
+  useEffect(() => {    
      if (score === cats.length) {
-      displayWin();
+      setDisplayWin(true)
      }
-  })
 
-  function handleWin() {
+  }, [score, cats])
+
+
+  function handleWin(score) {
     setDisplayWin(false)
     setHighScore(score)
     setScore(0)
     resetCats();
   }
 
-  function handleClick(catId) {
-    const clickedCat = cats.find((cat) => cat.id === catId);
+  function handleClick(clickedCat) {
     (! clickedCat.clicked ) ?  handleScore(clickedCat) :  setDisplayLose(true);
-   
   }
 
   function handleScore(clickedCat) {    
     setScore(score + 1); 
-    clickCat(clickedCat);
-    shuffleArray(cats);    
+    clickCat(clickedCat);    
+   setCats(shuffle(cats))
+   console.log(cats)
   }  
 
   function handleLose() {
@@ -50,7 +47,7 @@ function App() {
     }   
     setScore(0);
     resetCats();
-    shuffleArray(cats);
+    setCats(shuffle(cats))
   }
 
   function resetCats() {
@@ -71,11 +68,6 @@ function App() {
     setCats(newCats);
   }
 
-  function shuffleArray(array) {
-    const newArr = shuffle(array)
-    setCats(newArr);
-  }
-
   return (
     <Wrapper>
       <Header 
@@ -87,14 +79,14 @@ function App() {
               <Card 
               cat={cat}
               key={cat.id}
-              onClick={() => handleClick(cat.id)}></Card>
+              onClick={() => handleClick(cat)}></Card>
             )
           })}
       </div>
       {displayWin && <Modal 
                         show={displayWin}
                         text={"Congratulations, you won!"}
-                        onClick={handleWin}
+                        onClick={() => handleWin(score)}
        />}
       {displayLose && <Modal 
                         show={displayLose}
