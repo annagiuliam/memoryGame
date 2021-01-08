@@ -2,22 +2,24 @@ import React, {useState, useEffect} from 'react';
 import {shuffle} from 'lodash';
 import catArr from './components/cats';
 import './App.css';
-import Card from './components/card';
-import Wrapper from './components/wrapper';
-import Header from './components/header';
+import Card from './components/Card';
+import Wrapper from './components/Wrapper';
+import Header from './components/Header';
+import Modal from './components/Modal';
 
 function App() {
   const [cats, setCats] = useState(catArr);
   const  [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  const [displayWin, setDisplayWin] = useState(false);
+  const [displayLose, setDisplayLose] = useState(false);
   
   useEffect(() => {
-
     function handleWin() {
-      alert("You won!")
-        setHighScore(score)
-        setScore(0)
-        resetCats();
+      setDisplayWin(true)
+      setHighScore(score)
+      setScore(0)
+      resetCats();
     }
     
      if (score === cats.length) {
@@ -35,9 +37,7 @@ function App() {
     setScore(score + 1); 
     clickCat(clickedCat);
     shuffleArray(cats);    
-  }
-
-  
+  }  
 
   function handleLose() {
     if (score > highScore) {
@@ -45,7 +45,7 @@ function App() {
     }   
     setScore(0);
     resetCats();
-    alert("You lost, try again!")
+    setDisplayLose(true);
     shuffleArray(cats);
   }
 
@@ -87,7 +87,16 @@ function App() {
             )
           })}
       </div>
-         
+      {displayWin && <Modal 
+                        show={displayWin}
+                        text={"Congratulations, you won!"}
+                        onClick={() => setDisplayWin(false)}
+       />}
+      {displayLose && <Modal 
+                        show={displayLose}
+                        text={"Sorry, you lost, try again!"} 
+                        onClick={() => setDisplayLose(false)}
+        />}
         
       
       </Wrapper>
